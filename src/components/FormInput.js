@@ -1,17 +1,25 @@
-import React from 'react';
-import styled from 'styled-components';
 
+import styled from 'styled-components';
+import {useDispatch } from 'react-redux'
+import { useState } from 'react';
+import {addBook} from '../redux/books/books'
 function FormInput() {
+  const [name , setName] = useState("")
+  const [option , setOption] = useState("")
+  const dispatch = useDispatch()
+  const handleSubmit = (e)=>{
+   e.preventDefault();
+  }
   return (
     <Container>
-      <Form>
-        <Input type="text" placeholder="Add a book here..." />
+      <Form onSubmit={handleSubmit}>
+        <Input type="text" value={name} onChange={(e)=>setName(e.target.value)} placeholder="Add a book here..." />
         <Select id="book" name="book">
-          <Option value="classic">Classic</Option>
-          <Option value="comic">Comic</Option>
-          <Option value="action">Action</Option>
+          <Option onChange={(e)=>setOption(e.target.value)} value="classic">Classic</Option>
+          <Option onChange={(e)=>setOption(e.target.value)} value="comic">Comic</Option>
+          <Option onChange={(e)=>setOption(e.target.value)} value="action">Action</Option>
         </Select>
-        <Button type="submit">Add book</Button>
+        <Button type="submit" onClick={()=>dispatch(addBook({id:Math.floor(Math.random() * 100), name, option}))}>Add book</Button>
       </Form>
     </Container>
   );
