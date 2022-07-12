@@ -3,23 +3,29 @@ import styled from 'styled-components';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import FormInput from './FormInput';
 import 'react-circular-progressbar/dist/styles.css';
-
+import { useSelector,useDispatch} from 'react-redux'
+import {removeBook} from '../redux/books/books'
 function Books() {
-  const percentage = 80;
+  const percentage = 90;
+  const books = useSelector((state) => state.myStore.books)
+  const dispatch = useDispatch()
   return (
     <Container>
       <BooksList>
-        <Book>
+        {
+          books.map((book)=>{
+            return(
+              <Book id={book.id}>
           <div>
             <Titles>
-              <TitleH4>type</TitleH4>
-              <h2>The title of the book that i like the most</h2>
+              <TitleH4>{book.option}</TitleH4>
+              <h2>{book.name}</h2>
               <Small>Author</Small>
             </Titles>
             <Editing>
-              <Span>Comment</Span>
+              <Span>comments</Span>
               <Hr />
-              <Span>Remove</Span>
+              <Span onClick={()=>dispatch(removeBook({id:book.id}))}>Remove</Span>
               <Hr />
               <Span>Edit</Span>
             </Editing>
@@ -35,32 +41,9 @@ function Books() {
             </Titles>
           </Chapters>
         </Book>
-        <Book>
-          <div>
-            <Titles>
-              <TitleH4>type</TitleH4>
-              <h2>The title of the book that i like the most</h2>
-              <Small>Author</Small>
-            </Titles>
-            <Editing>
-              <Span>Comment</Span>
-              <Hr />
-              <Span>Remove</Span>
-              <Hr />
-              <Span>Edit</Span>
-            </Editing>
-          </div>
-          <Chapters>
-            <Bar style={{ width: 130, height: 130 }}>
-              <CircularProgressbar value={percentage} text={`${percentage}%`} />
-            </Bar>
-            <Titles>
-              <H4>CURRENT CHAPTER</H4>
-              <h2>Chapter 10</h2>
-              <Button type="button">Update Progress</Button>
-            </Titles>
-          </Chapters>
-        </Book>
+            )
+          })
+        }
       </BooksList>
       <Footer>
         <FormInput />
