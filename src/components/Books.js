@@ -13,19 +13,19 @@ function Books() {
     <Container>
       <BooksList>
         {
-          books.map((book)=>{
+          books.map((item)=>{
             return(
-              <Book id={book.id}>
+              <Book id={item.id}>
           <div>
             <Titles>
-              <TitleH4>{book.option}</TitleH4>
-              <h2>{book.name}</h2>
-              <Small>Author</Small>
+              <TitleH4>CHAPTER{item.chapter}</TitleH4>
+              <h2>{item.book}</h2>
+              <Small>{item.author}</Small>
             </Titles>
             <Editing>
               <Span>comments</Span>
               <Hr />
-              <Span onClick={()=>dispatch(removeBook({id:book.id}))}>Remove</Span>
+              <Span onClick={()=>dispatch(removeBook({id:item.id}))}>Remove</Span>
               <Hr />
               <Span>Edit</Span>
             </Editing>
