@@ -22,10 +22,12 @@ function FormInput() {
     return toast.error('The book Exist')
    }
    let id = Math.floor(Math.random() * 100);
+   let chapter = Math.floor(Math.random() * 100);
     setValues({book : "",author :""})
    const {book, author} = values;
    dispatch(addBook({
     id,
+    chapter,
     book,
     author
    }))

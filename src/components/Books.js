@@ -17,7 +17,6 @@ function Books() {
             <Book key={item.id}> 
               <div>
                 <Titles>
-                  <TitleH4>CHAPTER{item.chapter}</TitleH4>
                   <h2>{item.book}</h2>
                   <Small>{item.author}</Small>
                 </Titles>
@@ -40,7 +39,7 @@ function Books() {
                 </Bar>
                 <Titles>
                   <H4>CURRENT CHAPTER</H4>
-                  <h2>Chapter 10</h2>
+                  <h2>Chapter{item.chapter}</h2>
                   <Button type="button">Update Progress</Button>
                 </Titles>
               </Chapters>
