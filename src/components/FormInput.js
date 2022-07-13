@@ -7,8 +7,6 @@ import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 function FormInput() {
   const [values , setValues] = useState({
-    id:Math.floor(Math.random() * 100),
-    chapter:0,
     book:'',
     author:''
   })
@@ -23,11 +21,11 @@ function FormInput() {
    if(Title){
     return toast.error('The book Exist')
    }
+   let id = Math.floor(Math.random() * 100);
     setValues({book : "",author :""})
-   const {id, book, author} = values;
+   const {book, author} = values;
    dispatch(addBook({
     id,
-    chapter:book.length,
     book,
     author
    }))

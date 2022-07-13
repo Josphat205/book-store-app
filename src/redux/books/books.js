@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   books: [
     {
-      id: 2030,
+      id: Math.floor(Math.random() * 100),
       chapter: 1,
       book: "The blossoms",
       author: "John mandal",

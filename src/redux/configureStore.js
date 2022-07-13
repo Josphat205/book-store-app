@@ -4,6 +4,6 @@ import categoriesReducer from './categories/categories'
 export const store = configureStore({
   reducer: {
     myStore: counterReducer,
-    categories: categoriesReducer
+    myCategories: categoriesReducer
   },
 })

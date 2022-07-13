@@ -1,12 +1,20 @@
-import React from 'react';
+import {useState} from 'react';
 import styled from 'styled-components';
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
+import { checkStatus } from '../redux/categories/categories';
 function Categories() {
+  const [showStatus, setShowStatus]= useState(false)
   const dispatch = useDispatch()
+  const cat = useSelector((state)=>state.myCategories)
+  const handleCheckStatus = ()=>{
+    dispatch(checkStatus())
+    setShowStatus(true)
+  }
   return (
     <Container>
       <h1>Categories will go here</h1>
-      <Button type="button" onClick={()=>dispatch()}>Update Progress</Button>
+      <div>{showStatus ? cat : ""}</div>
+      <Button type="button" onClick={handleCheckStatus}>Update Progress</Button>
     </Container>
   );
 }
