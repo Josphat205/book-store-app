@@ -1,5 +1,4 @@
 import BooksStore from './components/BooksStore';
-
 function App() {
   return (
     <div className="App">

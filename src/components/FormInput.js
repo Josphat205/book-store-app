@@ -3,23 +3,41 @@ import styled from 'styled-components';
 import {useDispatch } from 'react-redux'
 import { useState } from 'react';
 import {addBook} from '../redux/books/books'
+import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 function FormInput() {
-  const [name , setName] = useState("")
-  const [option , setOption] = useState("")
+  const [values , setValues] = useState({
+    book:'',
+    author:''
+  })
+  const books = useSelector((state) => state.myStore.books)
+  const Title = books.find((item) => item.book === values.book)
   const dispatch = useDispatch()
   const handleSubmit = (e)=>{
    e.preventDefault();
+   if(!values.book || !values.author){
+     return toast.warning('please fill all fields')
+   }
+   if(Title){
+    return toast.error('The book Exist')
+   }
+   let id = Math.floor(Math.random() * 100);
+   let chapter = Math.floor(Math.random() * 100);
+    setValues({book : "",author :""})
+   const {book, author} = values;
+   dispatch(addBook({
+    id,
+    chapter,
+    book,
+    author
+   }))
   }
   return (
     <Container>
-      <Form onSubmit={handleSubmit}>
-        <Input type="text" value={name} onChange={(e)=>setName(e.target.value)} placeholder="Add a book here..." />
-        <Select id="book" name="book">
-          <Option onChange={(e)=>setOption(e.target.value)} value="classic">Classic</Option>
-          <Option onChange={(e)=>setOption(e.target.value)} value="comic">Comic</Option>
-          <Option onChange={(e)=>setOption(e.target.value)} value="action">Action</Option>
-        </Select>
-        <Button type="submit" onClick={()=>dispatch(addBook({id:Math.floor(Math.random() * 100), name, option}))}>Add book</Button>
+      <Form  onSubmit={handleSubmit}>
+      <Input type="text" value={values.book} onChange={(e)=>setValues({...values, book : e.target.value})} placeholder="Add a book here..." />
+      <Input type="text" value={values.author} onChange={(e)=>setValues({...values, author : e.target.value})} placeholder="Add author..." />
+        <Button type="submit">Add book</Button>
       </Form>
     </Container>
   );
@@ -36,19 +54,8 @@ color:#fff;
   trasition: all 500ms ease;
 }
 `;
-const Option = styled.option`
-border-radius: 10px;
-border:1px solid blue;
-`;
+
 const Input = styled.input`
- padding:10px 20px;
- width:50%;
- border-radius: 10px;
- outline:none;
- border:1px solid blue;
- font-size: 18px;
-`;
-const Select = styled.select`
  padding:10px 20px;
  width:30%;
  border-radius: 10px;
@@ -56,6 +63,7 @@ const Select = styled.select`
  border:1px solid blue;
  font-size: 18px;
 `;
+
 const Form = styled.form`
   width: 100%;
   display: flex;
