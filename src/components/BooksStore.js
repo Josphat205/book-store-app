@@ -7,13 +7,12 @@ import {
 import Books from './Books';
 import NavSection from './NavSection';
 import Categories from './Categories';
-import { ToastContainer } from 'react-toastify';
+
 
 function BooksStore() {
   return (
     <Container>
       <NavSection />
-      <ToastContainer/>
       <Routes>
         <Route path="/" element={<Books />} />
         <Route path="/categories" element={<Categories />} />
