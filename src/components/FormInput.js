@@ -1,51 +1,51 @@
 
 import styled from 'styled-components';
-import {useDispatch } from 'react-redux'
 import { useState } from 'react';
-import {addBook} from '../redux/books/books'
-import { toast } from 'react-toastify';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { addBook} from '../redux/books/books';
 function FormInput() {
-  const [values , setValues] = useState({
-    book:'',
-    author:''
-  })
-  const books = useSelector((state) => state.myStore.books)
-  const Title = books.find((item) => item.book === values.book)
-  const dispatch = useDispatch()
-  const handleSubmit = (e)=>{
-   e.preventDefault();
-   if(!values.book || !values.author){
-     return toast.warning('please fill all fields')
-   }
-   if(Title){
-    return toast.error('The book Exist')
-   }
-   let id = Math.floor(Math.random() * 100);
-   let chapter = Math.floor(Math.random() * 100);
-    setValues({book : "",author :""})
-   const {book, author} = values;
-   dispatch(addBook({
-    id,
-    chapter,
-    book,
-    author
-   }))
-  }
+  const [state, setState] = useState({
+    title: '',
+    author: '',
+    category: '',
+  });
+  const dispatch = useDispatch();
+  const handleChange = (e) => {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const handleSubmition = (e) => {
+    e.preventDefault()
+    const {
+      title, author, category,
+    } = state;
+    if (title.length && author.length  && category ) {
+      dispatch(addBook({
+        item_id: Math.floor(Math.random() * 10000), title, author, category,
+      }));
+    }
+    state.title = '';
+    state.author = '';
+    state.category = '';
+  };
   return (
     <Container>
-      <Form  onSubmit={handleSubmit}>
-      <Input type="text" value={values.book} onChange={(e)=>setValues({...values, book : e.target.value})} placeholder="Add a book here..." />
-      <Input type="text" value={values.author} onChange={(e)=>setValues({...values, author : e.target.value})} placeholder="Add author..." />
+      <Form onSubmit={handleSubmition}>
+        <Input value={state.title} name='title' type="text" onChange={handleChange} placeholder="Add a book here..." />
+        <Input value={state.author} name='author' type="text" onChange={handleChange} placeholder="Add author..." />
+        <Input value={state.category} name='category' type="text" onChange={handleChange} placeholder="Add category..." />
         <Button type="submit">Add book</Button>
       </Form>
     </Container>
   );
 }
 const Button = styled.button`
-padding:12px 15px;
+padding:10px 13px;
 border-radius: 8px;
 background-color: blue;
+margin-left:3px;
 color:#fff;
 &:hover{
   background-color: #fff;

@@ -1,29 +1,33 @@
-import React from "react";
 import styled from "styled-components";
 import { CircularProgressbar } from "react-circular-progressbar";
 import FormInput from "./FormInput";
 import "react-circular-progressbar/dist/styles.css";
-import { useSelector, useDispatch } from "react-redux";
-import { removeBook } from "../redux/books/books";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { deleteBook,fetchBooks} from "../redux/books/books";
 function Books() {
   const percentage = 90;
-  const books = useSelector((state) => state.myStore.books);
+  const books = useSelector((state) => state.groupBooks.books);
   const dispatch = useDispatch();
+  useEffect(() => {
+      dispatch(fetchBooks())
+  },[])
   return (
     <Container>
       <BooksList>
-        {books.map((item) => {
-          return (
-            <Book key={item.id}> 
+      {
+            Object.keys(books).map((item,index) => {
+                return(
+                  <Book key={index}> 
               <div>
                 <Titles>
-                  <h2>{item.book}</h2>
-                  <Small>{item.author}</Small>
+                  <h2>{books[item][0].title}</h2>
+                  <Small>{books[item][0].author}</Small>
                 </Titles>
                 <Editing>
                   <Span>comments</Span>
                   <Hr />
-                  <Span onClick={() => dispatch(removeBook({ id: item.id }))}>
+                  <Span onClick={()=>dispatch(deleteBook(item))}>
                     Remove
                   </Span>
                   <Hr />
@@ -39,13 +43,15 @@ function Books() {
                 </Bar>
                 <Titles>
                   <H4>CURRENT CHAPTER</H4>
-                  <h2>Chapter{item.chapter}</h2>
+                  <h3>{books[item][0].category}</h3>
                   <Button type="button">Update Progress</Button>
                 </Titles>
               </Chapters>
             </Book>
-          );
-        })}
+                )
+            })
+        }  
+            
       </BooksList>
       <Footer>
         <FormInput />
@@ -54,7 +60,6 @@ function Books() {
   );
 }
 const Footer = styled.div`
-  position: relative;
   bottom: 10px;
   margin-top: 20px;
   width: 100%;
@@ -108,9 +113,6 @@ const Span = styled.span`
   &:hover {
     color: blue;
   }
-`;
-const TitleH4 = styled.h4`
-  line-height: 2px;
 `;
 const Titles = styled.div`
   display: flex;
