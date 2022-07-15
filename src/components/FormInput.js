@@ -56,9 +56,9 @@ color:#fff;
 `;
 
 const Input = styled.input`
- padding:10px 20px;
- width:30%;
- border-radius: 10px;
+ padding:8px 15px;
+ width:25%;
+ border-radius: 5px;
  outline:none;
  border:1px solid blue;
  font-size: 18px;

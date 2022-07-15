@@ -60,7 +60,7 @@ function Books() {
   );
 }
 const Footer = styled.div`
-  bottom: 10px;
+  bottom: 20px;
   margin-top: 20px;
   width: 100%;
   backdrop-filter: blur(30px);
@@ -143,14 +143,13 @@ const BooksList = styled.div`
   width: 100%;
   margin: 0 auto;
   display: block;
-  max-height: 70%;
+  max-height: 60%;
   min-height: fit-content;
-  padding: 10px;
+  padding: 5px 0;
 `;
 const Container = styled.div`
   width: 100%;
   margin: 0 auto;
-  position: relative;
   top: 10%;
 `;
 export default Books;
