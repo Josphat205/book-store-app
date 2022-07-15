@@ -1,33 +1,51 @@
 
 import styled from 'styled-components';
-import {useDispatch } from 'react-redux'
 import { useState } from 'react';
-import {addBook} from '../redux/books/books'
+import { useDispatch } from 'react-redux';
+import { addBook} from '../redux/books/books';
 function FormInput() {
-  const [name , setName] = useState("")
-  const [option , setOption] = useState("")
-  const dispatch = useDispatch()
-  const handleSubmit = (e)=>{
-   e.preventDefault();
-  }
+  const [state, setState] = useState({
+    title: '',
+    author: '',
+    category: '',
+  });
+  const dispatch = useDispatch();
+  const handleChange = (e) => {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const handleSubmition = (e) => {
+    e.preventDefault()
+    const {
+      title, author, category,
+    } = state;
+    if (title.length && author.length  && category ) {
+      dispatch(addBook({
+        item_id: Math.floor(Math.random() * 10000), title, author, category,
+      }));
+    }
+    state.title = '';
+    state.author = '';
+    state.category = '';
+  };
   return (
     <Container>
-      <Form onSubmit={handleSubmit}>
-        <Input type="text" value={name} onChange={(e)=>setName(e.target.value)} placeholder="Add a book here..." />
-        <Select id="book" name="book">
-          <Option onChange={(e)=>setOption(e.target.value)} value="classic">Classic</Option>
-          <Option onChange={(e)=>setOption(e.target.value)} value="comic">Comic</Option>
-          <Option onChange={(e)=>setOption(e.target.value)} value="action">Action</Option>
-        </Select>
-        <Button type="submit" onClick={()=>dispatch(addBook({id:Math.floor(Math.random() * 100), name, option}))}>Add book</Button>
+      <Form onSubmit={handleSubmition}>
+        <Input value={state.title} name='title' type="text" onChange={handleChange} placeholder="Add a book here..." />
+        <Input value={state.author} name='author' type="text" onChange={handleChange} placeholder="Add author..." />
+        <Input value={state.category} name='category' type="text" onChange={handleChange} placeholder="Add category..." />
+        <Button type="submit">Add book</Button>
       </Form>
     </Container>
   );
 }
 const Button = styled.button`
-padding:12px 15px;
+padding:10px 13px;
 border-radius: 8px;
 background-color: blue;
+margin-left:3px;
 color:#fff;
 &:hover{
   background-color: #fff;
@@ -36,22 +54,10 @@ color:#fff;
   trasition: all 500ms ease;
 }
 `;
-const Option = styled.option`
-border-radius: 10px;
-border:1px solid blue;
-`;
 const Input = styled.input`
- padding:10px 20px;
- width:50%;
- border-radius: 10px;
- outline:none;
- border:1px solid blue;
- font-size: 18px;
-`;
-const Select = styled.select`
- padding:10px 20px;
- width:30%;
- border-radius: 10px;
+ padding:8px 15px;
+ width:26%;
+ border-radius: 5px;
  outline:none;
  border:1px solid blue;
  font-size: 18px;

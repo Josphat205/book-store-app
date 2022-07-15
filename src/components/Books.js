@@ -1,49 +1,58 @@
-import React from 'react';
-import styled from 'styled-components';
-import { CircularProgressbar } from 'react-circular-progressbar';
-import FormInput from './FormInput';
-import 'react-circular-progressbar/dist/styles.css';
-import { useSelector,useDispatch} from 'react-redux'
-import {removeBook} from '../redux/books/books'
+
+import styled from "styled-components";
+import { CircularProgressbar } from "react-circular-progressbar";
+import FormInput from "./FormInput";
+import "react-circular-progressbar/dist/styles.css";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { deleteBook,fetchBooks} from "../redux/books/books";
 function Books() {
   const percentage = 90;
-  const books = useSelector((state) => state.myStore.books)
-  const dispatch = useDispatch()
+  const books = useSelector((state) => state.groupBooks.books);
+  const dispatch = useDispatch();
+  useEffect(() => {
+      dispatch(fetchBooks())
+  },[])
   return (
     <Container>
       <BooksList>
-        {
-          books.map((book)=>{
-            return(
-              <Book id={book.id}>
-          <div>
-            <Titles>
-              <TitleH4>{book.option}</TitleH4>
-              <h2>{book.name}</h2>
-              <Small>Author</Small>
-            </Titles>
-            <Editing>
-              <Span>comments</Span>
-              <Hr />
-              <Span onClick={()=>dispatch(removeBook({id:book.id}))}>Remove</Span>
-              <Hr />
-              <Span>Edit</Span>
-            </Editing>
-          </div>
-          <Chapters>
-            <Bar style={{ width: 130, height: 130 }}>
-              <CircularProgressbar value={percentage} text={`${percentage}%`} />
-            </Bar>
-            <Titles>
-              <H4>CURRENT CHAPTER</H4>
-              <h2>Chapter 10</h2>
-              <Button type="button">Update Progress</Button>
-            </Titles>
-          </Chapters>
-        </Book>
-            )
-          })
-        }
+      {
+            Object.keys(books).map((item,index) => {
+                return(
+                  <Book key={index}> 
+              <div>
+                <Titles>
+                  <h2>{books[item][0].title}</h2>
+                  <Small>{books[item][0].author}</Small>
+                </Titles>
+                <Editing>
+                  <Span>comments</Span>
+                  <Hr />
+                  <Span onClick={()=>dispatch(deleteBook(item))}>
+                    Remove
+                  </Span>
+                  <Hr />
+                  <Span>Edit</Span>
+                </Editing>
+              </div>
+              <Chapters>
+                <Bar style={{ width: 130, height: 130 }}>
+                  <CircularProgressbar
+                    value={percentage}
+                    text={`${percentage}%`}
+                  />
+                </Bar>
+                <Titles>
+                  <H4>CURRENT CHAPTER</H4>
+                  <h3>{books[item][0].category}</h3>
+                  <Button type="button">Update Progress</Button>
+                </Titles>
+              </Chapters>
+            </Book>
+                )
+            })
+        }  
+            
       </BooksList>
       <Footer>
         <FormInput />
@@ -52,15 +61,14 @@ function Books() {
   );
 }
 const Footer = styled.div`
-  position: relative;
   bottom: 10px;
-  margin-top:20px;
+  margin-top: 20px;
   width: 100%;
   backdrop-filter: blur(30px);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color:grey;
+  background-color: grey;
 `;
 const Small = styled.small`
   opacity: 0.6;
@@ -106,9 +114,6 @@ const Span = styled.span`
   &:hover {
     color: blue;
   }
-`;
-const TitleH4 = styled.h4`
-  line-height: 2px;
 `;
 const Titles = styled.div`
   display: flex;
