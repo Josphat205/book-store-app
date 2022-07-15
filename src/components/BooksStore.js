@@ -23,8 +23,7 @@ function BooksStore() {
 
 const Container = styled.div`
   padding: 0;
-  width: 80%;
-  left:10%;
+  width: 90%;
   margin: 0 auto;
   border-radius: 10px;
   background: #faf9f9;
