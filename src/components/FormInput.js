@@ -54,14 +54,16 @@ color:#fff;
   trasition: all 500ms ease;
 }
 `;
+
 const Input = styled.input`
- padding:8px 15px;
- width:26%;
- border-radius: 5px;
+ padding:10px 20px;
+ width:30%;
+ border-radius: 10px;
  outline:none;
  border:1px solid blue;
  font-size: 18px;
 `;
+
 const Form = styled.form`
   width: 100%;
   display: flex;

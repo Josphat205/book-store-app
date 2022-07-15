@@ -1,4 +1,3 @@
-
 import styled from "styled-components";
 import { CircularProgressbar } from "react-circular-progressbar";
 import FormInput from "./FormInput";
