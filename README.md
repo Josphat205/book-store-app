@@ -10,6 +10,10 @@ This is an application that is used to handle simple BOOKSTORE
 
 ## Live Demo
 - [live demo](https://mybookstore345.herokuapp.com/)
+
+## Screenshot
+![BookStore](image.png)
+
 ## **Setup**   
 To use this project copy the code SSl link othe repository<br />
 ## React installation process
