@@ -25,6 +25,15 @@ export const addBook = ({
     dispatch(fetchBooks());
 };
 
+export const editBook = (id) => async (dispatch) => {
+  await axios.put(`${BOOK_API}/${9999}`,{
+      title:"Kitaeleweka",
+      author:"Chemosi",
+      category:"Tiondo"
+  }).then(res => res.json())
+  dispatch(fetchBooks());
+};
+
 
 export const booksSlice = createSlice({
   name: 'booksStore',
