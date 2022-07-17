@@ -15,7 +15,7 @@ function Edit() {
 }
 const Head = styled.h2`
 text-align:center;
-font-size:28px;
+font-size:27px;
 `;
 const Container = styled.div`
 margin-top:20px;
