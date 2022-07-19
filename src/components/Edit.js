@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 function Edit() {
   return (
     <Container>
@@ -10,6 +11,7 @@ function Edit() {
     <Input  name='category' type="text"  placeholder="Edit category..." />
     <Button type="submit">Update book</Button>
   </Form>
+  <NavLink to={'/'}>Go Back</NavLink>
     </Container>
   )
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { BsPersonCircle } from 'react-icons/bs';
+import {FaBars } from 'react-icons/fa';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 function NavSection() {
@@ -13,11 +14,21 @@ function NavSection() {
             <NavLinks to="categories">Categories</NavLinks>
           </Ul>
         </NavBar>
+        <Bar/>
         <Avatar />
       </Nav>
     </Container>
   );
 }
+const Bar = styled(FaBars)`
+font-size:28px;
+color:blue;
+cursor:pointer;
+display:none;
+@media (max-width: 500px) {
+  display: block;
+}
+`;
 const H1 = styled.h1`
 font-size:30px;
 color:blue;
@@ -48,6 +59,9 @@ const Avatar = styled(BsPersonCircle)`
  color:blue;
  margin-right:5px;
  cursor:pointer;
+ @media (max-width: 500px) {
+  display: none;
+}
 `;
 const Container = styled.div`
   width: 90%;
