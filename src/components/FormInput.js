@@ -53,6 +53,11 @@ color:#fff;
   color:blue;
   trasition: all 500ms ease;
 }
+@media (max-width: 768px) {
+  display:block;
+  width: 50%;
+  margin:5px;
+}
 `;
 
 const Input = styled.input`
@@ -62,6 +67,10 @@ const Input = styled.input`
  outline:none;
  border:1px solid blue;
  font-size: 18px;
+ @media (max-width: 768px) {
+  width:90%;
+  margin:5px 0;
+}
 `;
 
 const Form = styled.form`
@@ -69,6 +78,9 @@ const Form = styled.form`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 const Container = styled.div`
   width: 100%;

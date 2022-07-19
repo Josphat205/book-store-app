@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { deleteBook,fetchBooks} from "../redux/books/books";
 import {AiOutlineLike} from 'react-icons/ai'
 import { NavLink } from 'react-router-dom';
+import './Book.css'
 function Books() {
   const [like, setLike] = useState(1)
   const percentage = 90;
@@ -27,7 +28,7 @@ function Books() {
             Object.keys(books).map((item,index) => {
                 return(
                   <Book key={index}> 
-              <div>
+              <div className="book-div">
                 <Titles>
                   <h2>{books[item][0].title}</h2>
                   <Small>{books[item][0].author}</Small>
@@ -43,7 +44,7 @@ function Books() {
                 </Editing>
               </div>
               <Chapters>
-                <Bar style={{ width: 130, height: 130 }}>
+                <Bar style={{ width: 130, height: 130 }} className='progressBar'>
                   <CircularProgressbar
                     value={percentage}
                     text={`${percentage}%`}
@@ -180,13 +181,10 @@ const BooksList = styled.div`
   width: 100%;
   margin: 0 auto;
   display: block;
-  max-height: 60%;
-  min-height: fit-content;
   padding: 5px 0;
 `;
 const Container = styled.div`
   width: 100%;
-  margin: 0 auto;
   top: 10%;
 `;
 export default Books;
