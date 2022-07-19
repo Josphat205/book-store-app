@@ -53,7 +53,7 @@ function Books() {
                 <Titles>
                   <H4>CURRENT CHAPTER</H4>
                   <h3>{books[item][0].category}</h3>
-                  <Button type="button">Update Progress</Button>
+                  <Button className="btn-1" type="button">Progress</Button>
                 </Titles>
               </Chapters>
             </Book>
