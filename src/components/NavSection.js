@@ -1,24 +1,34 @@
 import React from 'react';
 import { BsPersonCircle } from 'react-icons/bs';
+import {FaBars } from 'react-icons/fa';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-
 function NavSection() {
   return (
     <Container>
       <Nav>
         <NavBar>
           <H1>BooksStore</H1>
-          <Ul>
+          <Ul className='list-div'>
             <NavLinks to="/">Books</NavLinks>
             <NavLinks to="categories">Categories</NavLinks>
           </Ul>
         </NavBar>
+        <Bar/>
         <Avatar />
       </Nav>
     </Container>
   );
 }
+const Bar = styled(FaBars)`
+font-size:28px;
+color:blue;
+cursor:pointer;
+display:none;
+@media (max-width: 500px) {
+  display: block;
+}
+`;
 const H1 = styled.h1`
 font-size:30px;
 color:blue;
@@ -40,15 +50,21 @@ const Ul = styled.ul`
 display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 500px) {
+     display: none;
+   }
 `;
 const Avatar = styled(BsPersonCircle)`
  font-size:30px;
  color:blue;
- margin-right:13px;
+ margin-right:5px;
  cursor:pointer;
+ @media (max-width: 500px) {
+  display: none;
+}
 `;
 const Container = styled.div`
-  width: 100%;
+  width: 90%;
   padding: 0 10px;
   height: 60px;
   background: #ffffff;

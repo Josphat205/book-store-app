@@ -1,17 +1,26 @@
 import styled from "styled-components";
+import { useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import FormInput from "./FormInput";
 import "react-circular-progressbar/dist/styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { deleteBook,fetchBooks} from "../redux/books/books";
+import {AiOutlineLike} from 'react-icons/ai'
+import { NavLink } from 'react-router-dom';
+import './Book.css'
 function Books() {
+  const [like, setLike] = useState(1)
   const percentage = 90;
   const books = useSelector((state) => state.groupBooks.books);
   const dispatch = useDispatch();
   useEffect(() => {
       dispatch(fetchBooks())
   },[])
+
+  const handleLikes = ()=>{
+    setLike(like +1)
+  }
   return (
     <Container>
       <BooksList>
@@ -19,23 +28,23 @@ function Books() {
             Object.keys(books).map((item,index) => {
                 return(
                   <Book key={index}> 
-              <div>
+              <div className="book-div">
                 <Titles>
                   <h2>{books[item][0].title}</h2>
                   <Small>{books[item][0].author}</Small>
                 </Titles>
                 <Editing>
-                  <Span>comments</Span>
+                  <Span onClick={handleLikes}><Lyk/><Like>{like}</Like></Span>
                   <Hr />
                   <Span onClick={()=>dispatch(deleteBook(item))}>
                     Remove
                   </Span>
                   <Hr />
-                  <Span>Edit</Span>
+                  <Span><NavLinks to="/edit">Edit</NavLinks></Span>
                 </Editing>
               </div>
               <Chapters>
-                <Bar style={{ width: 130, height: 130 }}>
+                <Bar style={{ width: 130, height: 130 }} className='progressBar'>
                   <CircularProgressbar
                     value={percentage}
                     text={`${percentage}%`}
@@ -44,7 +53,7 @@ function Books() {
                 <Titles>
                   <H4>CURRENT CHAPTER</H4>
                   <h3>{books[item][0].category}</h3>
-                  <Button type="button">Update Progress</Button>
+                  <Button className="btn-1" type="button">Progress</Button>
                 </Titles>
               </Chapters>
             </Book>
@@ -59,6 +68,21 @@ function Books() {
     </Container>
   );
 }
+const Lyk = styled(AiOutlineLike)`
+ color:blue;
+`;
+const Like = styled.p`
+ position:absolute;
+ width:15px;
+ height:15px;
+ border-radius:50%;
+ background:black;
+ color:white;
+ text-align:center;
+ top:-15px;
+ font-size:10px;
+ right:-10px;
+`;
 const Footer = styled.div`
   bottom: 20px;
   margin-top: 20px;
@@ -77,6 +101,18 @@ const H4 = styled.h4`
 `;
 const Bar = styled.div`
   margin: 0 50px;
+`;
+const NavLinks = styled(NavLink)`
+ text-decoration:none;
+ padding-right:20px;
+ color:blue;
+ font-size:18px;
+ cursor:pointer;
+ &:hover{
+  color:black;
+  transition: all 400ms ease;
+  font-weight:bold;
+ }
 `;
 const Button = styled.button`
   padding: 12px 15px;
@@ -110,6 +146,8 @@ const Span = styled.span`
   font-weight: 300;
   margin: 0 10px;
   cursor: pointer;
+  color:red;
+  position:relative;
   &:hover {
     color: blue;
   }
@@ -143,13 +181,10 @@ const BooksList = styled.div`
   width: 100%;
   margin: 0 auto;
   display: block;
-  max-height: 60%;
-  min-height: fit-content;
   padding: 5px 0;
 `;
 const Container = styled.div`
   width: 100%;
-  margin: 0 auto;
   top: 10%;
 `;
 export default Books;

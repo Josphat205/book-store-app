@@ -7,6 +7,7 @@ import {
 import Books from './Books';
 import NavSection from './NavSection';
 import Categories from './Categories';
+import Edit from './Edit';
 
 
 function BooksStore() {
@@ -15,6 +16,7 @@ function BooksStore() {
       <NavSection />
       <Routes>
         <Route path="/" element={<Books />} />
+        <Route path="/edit" element={<Edit/>} />
         <Route path="/categories" element={<Categories />} />
       </Routes>
     </Container>
